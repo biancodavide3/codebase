@@ -4,7 +4,7 @@ spring:
   datasource:
 #    todo set up vault for these credentials
     url: jdbc:postgresql://localhost:5432/userdb
-    username: david
+    username: postgres
     password: password
   jpa:
     hibernate:
@@ -12,5 +12,5 @@ spring:
     show-sql: true
   flyway:
     url: jdbc:postgresql://localhost:5432/userdb
-    user: david
+    user: flyway
     password: password
