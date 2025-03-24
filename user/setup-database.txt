@@ -1,0 +1,12 @@
+# Login with username (see .env)
+psql -U postgres
+
+# Create db
+CREATE DATABASE userdb;
+
+# Create flyway user (with fine-grained permissions on the schema)
+CREATE USER flyway PASSWORD 'password';
+GRANT CREATE, USAGE ON SCHEMA public TO flyway;
+
+# Create vault user (with CREATEROLE attribute)
+CREATE USER vaultuser WITH PASSWORD 'vaultpass' CREATEROLE;
