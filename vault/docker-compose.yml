@@ -1,9 +1,12 @@
+# https://hub.docker.com/r/hashicorp/vault
+# NOTE since vault dev mode runs in memory every configuration must be reapplied 
 name: vault
 
 services:
   vault:
     image: hashicorp/vault:latest
     container_name: vault_server
+    restart: always
     ports:
       - "8200:8200"
     env_file:
@@ -11,8 +14,16 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - vault_data:/vault/data
+      - logs:/vault/logs
+      - file:/vault/file
     command: server -dev
+    networks:
+      - net
 
 volumes:
-  vault_data:
+  logs:
+  file:
+
+networks:
+  net:
+    driver: bridge
