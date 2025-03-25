@@ -4,9 +4,9 @@ psql -U postgres
 # Create db
 CREATE DATABASE userdb;
 
-# Create flyway user (with fine-grained permissions on the schema)
-CREATE USER flyway PASSWORD 'password';
-GRANT CREATE, USAGE ON SCHEMA public TO flyway;
+TODO these 2 should have fine-grained permissions
+# Create flyway user
+CREATE USER flyway WITH PASSWORD 'password' SUPERUSER;
 
-# Create vault user (with CREATEROLE attribute)
-CREATE USER vaultuser WITH PASSWORD 'vaultpass' CREATEROLE;
+# Create vault user
+CREATE USER vaultuser WITH PASSWORD 'vaultpass' SUPERUSER;
