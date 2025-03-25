@@ -40,6 +40,14 @@
             <artifactId>flyway-database-postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-vault-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-vault-config-databases</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
