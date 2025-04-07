@@ -1,5 +1,10 @@
-https://developer.hashicorp.com/vault/docs/secrets/databases/postgresql
-https://www.postgresql.org/docs/current/sql-createuser.html
+# https://developer.hashicorp.com/vault/docs/secrets/databases/postgresql
+# https://www.postgresql.org/docs/current/sql-createuser.html
+
+# docker cp ./vault-user-database-setup.sh vault_server:/
+# docker exec -it vault_server sh
+# chmod u+x /vault-user-database-setup.sh
+# /vault-user-database-setup.sh
 
 # Login
 export VAULT_ADDR=http://localhost:8200
@@ -25,8 +30,5 @@ vault write database/roles/userdb \
         GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO \"{{name}}\";" \
     default_ttl="1h" \
     max_ttl="24h"
-
-# Try to retrieve a set of credentials
-vault read database/creds/userdb
 
 # NOTE with flyway there is actually no need to generate dynamic credentials as flyway's connection is ephemeral
