@@ -1,4 +1,4 @@
-package com.biancodavide3.user.data;
+package com.biancodavide3.user.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

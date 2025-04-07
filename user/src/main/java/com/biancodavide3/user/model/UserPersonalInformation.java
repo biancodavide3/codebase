@@ -1,34 +1,39 @@
-package com.biancodavide3.user.data;
+package com.biancodavide3.user.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @Setter
-@Entity(name = "UserSecurityInformation")
-@Table(name = "user_security_information")
+@Entity(name = "UserPersonalInformation")
+@Table(name = "user_personal_information")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserSecurityInformation {
+public class UserPersonalInformation {
     @Id
     private UUID id;
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
     private UserPrimaryKey userPrimaryKey;
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    @Column(name = "gender")
+    private String gender;
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        UserSecurityInformation that = (UserSecurityInformation) o;
+        UserPersonalInformation that = (UserPersonalInformation) o;
         return Objects.equals(userPrimaryKey, that.userPrimaryKey);
     }
 
