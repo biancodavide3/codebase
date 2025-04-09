@@ -13,6 +13,7 @@
         <module>user</module>
         <module>jwt</module>
         <module>authentication</module>
+        <module>clients</module>
     </modules>
 
     <name>sso</name>

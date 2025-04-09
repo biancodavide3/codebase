@@ -50,6 +50,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-vault-config-databases</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.biancodavide3</groupId>
+            <artifactId>clients</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>
