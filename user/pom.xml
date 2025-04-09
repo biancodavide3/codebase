@@ -5,13 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.biancodavide3</groupId>
-        <artifactId>codebase</artifactId>
+        <artifactId>sso</artifactId>
         <version>1.0</version>
     </parent>
 
     <artifactId>user</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
+    <description>Manages the details of users of the system by storing them in a PostgreSQL database and exposes api to access them</description>
+    <url>https://www.github.com/biancodavide3/sso</url>
 
     <dependencies>
         <dependency>
