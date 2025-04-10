@@ -13,13 +13,13 @@ public class UserSecurityInformationController {
 
     private final UserSecurityInformationService service;
 
-    @GetMapping
+    @PostMapping("check")
     public ResponseEntity<UserSecurityInformationResponse> getUserSecurityInformation(
             @RequestBody UserSecurityInformationRequest request) {
         return service.getUserSecurityInformation(request);
     }
 
-    @PostMapping
+    @PostMapping("add")
     public ResponseEntity<UserSecurityInformationResponse> addUserSecurityInformation(
             @RequestBody UserSecurityInformationRequest request) {
         return service.addUserSecurityInformation(request);
