@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: user
+  datasource:
+    url: jdbc:postgresql://localhost:5432/userdb_test
+    username: postgres
+    password: password
+  cloud:
+    vault:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  flyway:
+    url: jdbc:postgresql://localhost:5432/userdb_test
+    user: flyway
+    password: password

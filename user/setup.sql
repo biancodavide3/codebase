@@ -5,6 +5,7 @@
 
 -- Create db
 CREATE DATABASE userdb;
+CREATE DATABASE userdb_test;
 
 -- TODO these 2 should have fine-grained permissions
 -- Create flyway user
