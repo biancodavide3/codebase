@@ -6,14 +6,14 @@ import java.util.Map;
 
 @Service
 public class RefreshTokenService extends GenericTokenService {
-    // todo make this come from vault
-    private int refreshTokenExpiration;
+
+    private final int REFRESH_TOKEN_EXPIRATION = 168;
 
     public String generateRefreshToken(String subject) {
-        return generateToken(subject, refreshTokenExpiration);
+        return generateToken(subject, REFRESH_TOKEN_EXPIRATION);
     }
 
     public String generateRefreshToken(String subject, Map<String, Object> claims) {
-        return generateToken(subject, refreshTokenExpiration, claims);
+        return generateToken(subject, REFRESH_TOKEN_EXPIRATION, claims);
     }
 }

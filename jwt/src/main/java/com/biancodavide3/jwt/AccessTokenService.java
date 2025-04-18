@@ -7,14 +7,13 @@ import java.util.Map;
 @Service
 public class AccessTokenService extends GenericTokenService {
 
-    // todo make this come from vault
-    private int accessTokenExpiration;
+    private final int ACCESS_TOKEN_EXPIRATION = 24;
 
     public String generateAccessToken(String subject) {
-        return generateToken(subject, accessTokenExpiration);
+        return generateToken(subject, ACCESS_TOKEN_EXPIRATION);
     }
 
     public String generateAccessToken(String subject, Map<String, Object> claims) {
-        return generateToken(subject, accessTokenExpiration, claims);
+        return generateToken(subject, ACCESS_TOKEN_EXPIRATION, claims);
     }
 }
