@@ -1,14 +1,16 @@
 package com.biancodavide3.jwt;
 
-import com.sun.jdi.IntegerValue;
 import io.jsonwebtoken.Claims;
-import org.assertj.core.internal.Integers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
+import static java.time.LocalDateTime.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 public class GenericTokenServiceTest {
 
@@ -24,17 +26,16 @@ public class GenericTokenServiceTest {
     void itShouldGenerateTokenCorrectly() {
         // given
         String subject = "david";
-        int expiration = 1;
+        int expiration = 15; // hours
         // when
         String token = underTest.generateToken(subject, expiration);
         // then
         boolean isTokenValid = underTest.isTokenValid(token, subject);
         assertThat(isTokenValid).isTrue();
-        Date extractedExpiration = underTest.extractClaim(token, Claims::getExpiration);
-        String extractedExpirationHour = extractedExpiration.toString().substring(11, 12);
-        String currentHour = new Date().toString().substring(11, 12);
-        int expirationHour = Integer.parseInt(extractedExpirationHour);
-        int hour = Integer.parseInt(currentHour);
-        assertThat(expirationHour - hour).isEqualTo(expiration);
+        // check that the expiration is correct
+        LocalDateTime extractedExpiration = underTest.extractClaim(token, Claims::getExpiration)
+                .toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        assertThat(extractedExpiration)
+                .isCloseTo(now().plusHours(expiration), within(1, ChronoUnit.MINUTES));
     }
 }
