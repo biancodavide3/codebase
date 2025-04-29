@@ -1,16 +1,17 @@
-package com.biancodavide3.jwt;
+package com.biancodavide3.authentication.token;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class RefreshTokenServiceTest {
-    private RefreshTokenService underTest;
+public class AccessTokenServiceTest {
+
+    private AccessTokenService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new RefreshTokenService();
+        underTest = new AccessTokenService();
     }
 
     @Test
@@ -18,7 +19,7 @@ public class RefreshTokenServiceTest {
         // given
         String subject = "david";
         // when
-        String token = underTest.generateRefreshToken(subject);
+        String token = underTest.generateAccessToken(subject);
         // then
         boolean isTokenValid = underTest.isTokenValid(token, subject);
         assertThat(isTokenValid).isTrue();

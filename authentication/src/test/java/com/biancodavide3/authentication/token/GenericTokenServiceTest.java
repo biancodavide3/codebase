@@ -1,4 +1,4 @@
-package com.biancodavide3.jwt;
+package com.biancodavide3.authentication.token;
 
 import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
-import static java.time.LocalDateTime.*;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.within;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class GenericTokenServiceTest {
 
