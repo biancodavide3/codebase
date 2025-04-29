@@ -5,12 +5,13 @@ import com.biancodavide3.clients.authentication.AuthenticationResponse;
 import com.biancodavide3.clients.user.UserSecurityInformationClient;
 import com.biancodavide3.clients.user.UserSecurityInformationRequest;
 import com.biancodavide3.clients.user.UserSecurityInformationResponse;
-import com.biancodavide3.jwt.AccessTokenService;
-import com.biancodavide3.jwt.RefreshTokenService;
+import com.biancodavide3.authentication.token.AccessTokenService;
+import com.biancodavide3.authentication.token.RefreshTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,11 +21,11 @@ public class AuthenticationService {
     private final UserSecurityInformationClient client;
     private final AccessTokenService accessTokenService;
     private final RefreshTokenService refreshTokenService;
+    private final PasswordEncoder passwordEncoder;
 
     public ResponseEntity<AuthenticationResponse> signup(AuthenticationRequest authenticationRequest) {
         String email = authenticationRequest.email();
-        String password = authenticationRequest.password();
-        // todo encrypt password
+        String password = passwordEncoder.encode(authenticationRequest.password());
         UserSecurityInformationRequest request = new UserSecurityInformationRequest(email, password);
         ResponseEntity<UserSecurityInformationResponse> response = client.addUserSecurityInformation(request);
         if (response.getStatusCode().isSameCodeAs(HttpStatus.CONFLICT))
@@ -36,8 +37,7 @@ public class AuthenticationService {
 
     public ResponseEntity<AuthenticationResponse> login(AuthenticationRequest authenticationRequest) {
         String email = authenticationRequest.email();
-        String password = authenticationRequest.password();
-        // todo encrypt password
+        String password = passwordEncoder.encode(authenticationRequest.password());
         UserSecurityInformationRequest request = new UserSecurityInformationRequest(email, password);
         ResponseEntity<UserSecurityInformationResponse> response = client.getUserSecurityInformation(request);
         HttpStatusCode statusCode = response.getStatusCode();
