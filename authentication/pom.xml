@@ -41,6 +41,10 @@
             <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.biancodavide3</groupId>
             <artifactId>clients</artifactId>
             <version>1.0</version>
