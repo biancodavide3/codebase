@@ -13,6 +13,15 @@ import lombok.*;
 public class Token {
     @Id
     @Column(columnDefinition = "BIGSERIAL PRIMARY KEY")
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "token_seq"
+    )
+    @SequenceGenerator(
+            name = "token_seq",
+            sequenceName = "token_id_seq",
+            allocationSize = 1
+    )
     private Long id;
     @Column(columnDefinition = "VARCHAR(255) UNIQUE NOT NULL")
     private String token;
