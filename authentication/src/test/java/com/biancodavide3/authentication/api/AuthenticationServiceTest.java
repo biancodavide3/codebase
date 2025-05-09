@@ -6,11 +6,12 @@ import com.biancodavide3.clients.authentication.AuthenticationRequest;
 import com.biancodavide3.clients.authentication.AuthenticationResponse;
 import com.biancodavide3.clients.user.UserSecurityInformationClient;
 import com.biancodavide3.clients.user.UserSecurityInformationRequest;
-import com.biancodavide3.clients.user.UserSecurityInformationResponse;
+import feign.FeignException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,15 +44,11 @@ class AuthenticationServiceTest {
         String accessToken = "access";
         String refreshToken = "refresh";
 
-        UserSecurityInformationRequest clientRequest = new UserSecurityInformationRequest(email, encodedPassword);
-        ResponseEntity<UserSecurityInformationResponse> clientResponse =
-                ResponseEntity.ok(new UserSecurityInformationResponse(email, encodedPassword));
         AuthenticationRequest request = new AuthenticationRequest(email, password);
 
         given(encoder.encode(password)).willReturn(encodedPassword);
         given(accessTokenService.generateAccessToken(email)).willReturn(accessToken);
         given(refreshTokenService.generateRefreshToken(email)).willReturn(refreshToken);
-        given(client.addUserSecurityInformation(clientRequest)).willReturn(clientResponse);
         // when
         ResponseEntity<AuthenticationResponse> response = underTest.signup(request);
         // then
@@ -70,12 +67,11 @@ class AuthenticationServiceTest {
         String encodedPassword = "abc123";
 
         UserSecurityInformationRequest clientRequest = new UserSecurityInformationRequest(email, encodedPassword);
-        ResponseEntity<UserSecurityInformationResponse> clientResponse =
-                new ResponseEntity<>(new UserSecurityInformationResponse(email, encodedPassword), HttpStatus.CONFLICT);
+        FeignException feignException = Mockito.mock(FeignException.Conflict.class);
         AuthenticationRequest request = new AuthenticationRequest(email, password);
 
         given(encoder.encode(password)).willReturn(encodedPassword);
-        given(client.addUserSecurityInformation(clientRequest)).willReturn(clientResponse);
+        given(client.addUserSecurityInformation(clientRequest)).willThrow(feignException);
         // when
         ResponseEntity<AuthenticationResponse> response = underTest.signup(request);
         // then
@@ -92,15 +88,11 @@ class AuthenticationServiceTest {
         String accessToken = "access";
         String refreshToken = "refresh";
 
-        UserSecurityInformationRequest clientRequest = new UserSecurityInformationRequest(email, encodedPassword);
-        ResponseEntity<UserSecurityInformationResponse> clientResponse =
-                ResponseEntity.ok(new UserSecurityInformationResponse(email, encodedPassword));
         AuthenticationRequest request = new AuthenticationRequest(email, password);
 
         given(encoder.encode(password)).willReturn(encodedPassword);
         given(accessTokenService.generateAccessToken(email)).willReturn(accessToken);
         given(refreshTokenService.generateRefreshToken(email)).willReturn(refreshToken);
-        given(client.getUserSecurityInformation(clientRequest)).willReturn(clientResponse);
         // when
         ResponseEntity<AuthenticationResponse> response = underTest.login(request);
         // then
@@ -119,12 +111,11 @@ class AuthenticationServiceTest {
         String encodedPassword = "abc123";
 
         UserSecurityInformationRequest clientRequest = new UserSecurityInformationRequest(email, encodedPassword);
-        ResponseEntity<UserSecurityInformationResponse> clientResponse =
-                new ResponseEntity<>(new UserSecurityInformationResponse(email, encodedPassword), HttpStatus.NOT_FOUND);
+        FeignException.NotFound feignException = Mockito.mock(FeignException.NotFound.class);
         AuthenticationRequest request = new AuthenticationRequest(email, password);
 
         given(encoder.encode(password)).willReturn(encodedPassword);
-        given(client.getUserSecurityInformation(clientRequest)).willReturn(clientResponse);
+        given(client.getUserSecurityInformation(clientRequest)).willThrow(feignException);
         // when
         ResponseEntity<AuthenticationResponse> response = underTest.login(request);
         // then
@@ -140,12 +131,11 @@ class AuthenticationServiceTest {
         String encodedPassword = "abc123";
 
         UserSecurityInformationRequest clientRequest = new UserSecurityInformationRequest(email, encodedPassword);
-        ResponseEntity<UserSecurityInformationResponse> clientResponse =
-                new ResponseEntity<>(new UserSecurityInformationResponse(email, encodedPassword), HttpStatus.CONFLICT);
+        FeignException.Conflict feignException = Mockito.mock(FeignException.Conflict.class);
         AuthenticationRequest request = new AuthenticationRequest(email, password);
 
         given(encoder.encode(password)).willReturn(encodedPassword);
-        given(client.getUserSecurityInformation(clientRequest)).willReturn(clientResponse);
+        given(client.getUserSecurityInformation(clientRequest)).willThrow(feignException);
         // when
         ResponseEntity<AuthenticationResponse> response = underTest.login(request);
         // then
