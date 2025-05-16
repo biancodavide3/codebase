@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: authorization-server
+  datasource:
+    url: jdbc:postgresql://localhost:5433/authorization_db_test
+    username: postgres
+    password: password
+  cloud:
+    vault:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  flyway:
+    url: jdbc:postgresql://localhost:5433/authorization_db_test
+    user: flyway
+    password: password
+
+server:
+  port:
+    8081

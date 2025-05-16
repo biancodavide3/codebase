@@ -1,0 +1,23 @@
+# https://hub.docker.com/_/postgres
+name: authorization-server
+
+services:
+  db:
+    image: postgres:latest
+    container_name: authorization-server-db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - vault_net
+
+volumes:
+  db_data:
+
+networks:
+  vault_net:
+    external: true
